@@ -1650,6 +1650,7 @@
 
         // Enviar encuesta
         function submitSurvey(event) {
+            try {
             // Validar campos requeridos
             const required = ['fecha', 'nombre', 'registro', 'ruta', 'tipoServicio'];
             for (let field of required) {
@@ -1665,11 +1666,13 @@
                 return;
             }
 
-            // Validar que todas las preguntas estén respondidas
+            // Validar que todas las preguntas visibles estén respondidas
             const questions = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9'];
 
             for (let q of questions) {
                 const radios = document.getElementsByName(q);
+                const questionRow = radios[0]?.closest('.question-row');
+                if (questionRow && questionRow.style.display === 'none') continue;
                 let checked = false;
                 for (let radio of radios) {
                     if (radio.checked) checked = true;
@@ -1736,12 +1739,16 @@
             const tipo = document.getElementById('tipoServicio').value;
             const p8row = document.getElementById('p8-row');
             const p9row = document.getElementById('p9-row');
+
+            // Desmarcar radios al ocultar
             if (tipo === 'Servicio permanente masivo') {
                 p8row.style.display = 'none';
                 p9row.style.display = '';
+                document.querySelectorAll('#p8-row input[type="radio"]').forEach(r => r.checked = false);
             } else if (tipo === 'Servicio ocasional') {
                 p8row.style.display = '';
                 p9row.style.display = 'none';
+                document.querySelectorAll('#p9-row input[type="radio"]').forEach(r => r.checked = false);
             } else {
                 p8row.style.display = '';
                 p9row.style.display = '';
