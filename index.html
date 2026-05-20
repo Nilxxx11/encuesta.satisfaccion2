@@ -1116,6 +1116,108 @@
         .scale-legend-item.neutral { background: #fffde7; color: #f9a825; }
         .scale-legend-item.good { background: #e8f5e9; color: #2e7d32; }
         .scale-legend-item.excellent { background: #e3f2fd; color: #1565c0; }
+
+        /* ===== Responsive para móviles ===== */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .flutter-container { border-radius: 15px; }
+            .flutter-header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px 15px;
+                text-align: center;
+            }
+            .logo-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .logo { height: 50px; }
+            .company-name { font-size: 16px; }
+            .nav-buttons { gap: 8px; }
+            .nav-btn { padding: 8px 16px; font-size: 14px; }
+            .flutter-content {
+                padding: 15px;
+                max-height: none;
+                min-height: auto;
+            }
+            .flutter-card {
+                padding: 15px;
+                border-radius: 15px;
+            }
+            .section-title { font-size: 17px; }
+            .info-group {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .question-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 12px;
+            }
+            .question-text {
+                font-size: 14px;
+                padding-right: 0;
+            }
+            .rating-scale {
+                gap: 4px;
+                width: 100%;
+                justify-content: center;
+            }
+            .rating-scale label {
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+            .rating-scale .emoji { font-size: 15px; }
+            .scale-legend {
+                gap: 6px;
+                padding: 10px;
+            }
+            .scale-legend-item { font-size: 11px; }
+            .question-group { padding: 12px; }
+            .flutter-button {
+                padding: 10px 20px;
+                font-size: 14px;
+                width: 100%;
+                margin: 5px 0;
+            }
+            .table-container { padding: 8px; }
+            th, td { padding: 6px 4px; font-size: 11px; }
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            .stat-card { padding: 15px; }
+            .modal-content {
+                padding: 25px 20px;
+                margin: 15px;
+            }
+            .modal-title { font-size: 24px; }
+            .nav-buttons { flex-wrap: wrap; justify-content: center; }
+            .login-container { margin: 20px auto; }
+            .rating-options { gap: 8px; justify-content: center; }
+            .rating-option { padding: 6px 10px; font-size: 13px; }
+        }
+
+        @media (max-width: 480px) {
+            .flutter-header { padding: 10px; }
+            .company-name { font-size: 14px; }
+            .flutter-content { padding: 10px; }
+            .flutter-card { padding: 12px; }
+            .section-title { font-size: 15px; }
+            .question-text { font-size: 13px; }
+            .rating-scale label {
+                padding: 5px 6px;
+                font-size: 11px;
+                min-width: 38px;
+                justify-content: center;
+            }
+            .scale-legend-item { font-size: 10px; padding: 3px 6px; }
+            .nav-btn { font-size: 12px; padding: 6px 12px; }
+            .modal-title { font-size: 20px; }
+            .modal-message { font-size: 15px; }
+            th, td { padding: 4px 2px; font-size: 10px; }
+            .flutter-input { font-size: 14px; padding: 10px 12px; }
+        }
     </style>
     <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -1712,6 +1814,7 @@
             // Guardar en Firebase
             database.ref('encuestas').push(surveyData)
                 .then(() => {
+                    console.log('Encuesta guardada exitosamente en Firebase');
                     showThankYouModal();
                     document.getElementById('surveyForm').reset();
                     const today = new Date().toISOString().split('T')[0];
