@@ -1157,7 +1157,7 @@
                     <p class="login-subtitle">Ingresa tus credenciales</p>
                     <input type="email" id="loginEmail" class="flutter-input" placeholder="Correo electrónico">
                     <input type="password" id="loginPassword" class="flutter-input" placeholder="Contraseña">
-                    <button class="flutter-button" onclick="login()" style="width: 100%;">
+                    <button class="flutter-button" onclick="login(this)" style="width: 100%;">
                         <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                     </button>
 
@@ -1347,7 +1347,7 @@
                         </div>
 
                         <div style="text-align: center; margin-top: 30px;">
-                            <button type="button" class="flutter-button" onclick="submitSurvey(event)">
+                            <button type="button" class="flutter-button" onclick="submitSurvey(this)">
                                 <i class="fas fa-paper-plane"></i> Enviar Encuesta
                             </button>
                         </div>
@@ -1604,12 +1604,12 @@
         }
 
         // Función de login
-        function login() {
+        function login(btn) {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
 
             // Animación de carga
-            const loginBtn = event.target;
+            const loginBtn = btn;
             loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Iniciando...';
             loginBtn.disabled = true;
 
@@ -1649,8 +1649,7 @@
         }
 
         // Enviar encuesta
-        function submitSurvey(event) {
-            try {
+        function submitSurvey(btn) {
             // Validar campos requeridos
             const required = ['fecha', 'nombre', 'registro', 'ruta', 'tipoServicio'];
             for (let field of required) {
@@ -1684,7 +1683,7 @@
             }
 
             // Animación del botón
-            const submitBtn = event.target;
+            const submitBtn = btn;
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
             submitBtn.disabled = true;
@@ -1713,17 +1712,10 @@
             // Guardar en Firebase
             database.ref('encuestas').push(surveyData)
                 .then(() => {
-                    // Mostrar modal de agradecimiento
                     showThankYouModal();
-
-                    // Limpiar formulario
                     document.getElementById('surveyForm').reset();
-
-                    // Establecer fecha actual por defecto
                     const today = new Date().toISOString().split('T')[0];
                     document.getElementById('fecha').value = today;
-
-                    // Restaurar botón
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
                 })
