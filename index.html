@@ -1189,6 +1189,14 @@
                             <h3 style="color: #2196F3; margin-bottom: 15px;"><i class="fas fa-user"></i> Datos del Usuario</h3>
                             <div class="info-group">
                                 <div class="info-field">
+                                    <label>Tipo de Servicio</label>
+                                    <select id="tipoServicio" class="flutter-input" required onchange="filtrarPreguntas()">
+                                        <option value="">Seleccione tipo de servicio</option>
+                                        <option value="Servicio permanente masivo">Servicio permanente masivo</option>
+                                        <option value="Servicio ocasional">Servicio ocasional</option>
+                                    </select>
+                                </div>
+                                <div class="info-field">
                                     <label>Fecha Resolución</label>
                                     <input type="date" id="fecha" class="flutter-input" required>
                                 </div>
@@ -1212,14 +1220,6 @@
                                     <label>Ruta HB Y CIA SAS</label>
                                     <select id="ruta" class="flutter-input" required>
                                         <option value="">Primero seleccione la jornada</option>
-                                    </select>
-                                </div>
-                                <div class="info-field">
-                                    <label>Tipo de Servicio</label>
-                                    <select id="tipoServicio" class="flutter-input" required>
-                                        <option value="">Seleccione tipo de servicio</option>
-                                        <option value="Servicio permanente masivo">Servicio permanente masivo</option>
-                                        <option value="Servicio ocasional">Servicio ocasional</option>
                                     </select>
                                 </div>
                             </div>
@@ -1317,7 +1317,7 @@
                                 </div>
                             </div>
 
-                            <div class="question-row">
+                            <div class="question-row" id="p8-row">
                                 <div class="question-text">Facilidad de solicitud del servicio de transporte ocasional</div>
                                 <div class="rating-scale">
                                     <label class="rating-1"><input type="radio" name="p8" value="1"><span>😠 1 Muy insatisfecho</span></label>
@@ -1328,7 +1328,7 @@
                                 </div>
                             </div>
 
-                            <div class="question-row">
+                            <div class="question-row" id="p9-row">
                                 <div class="question-text">Facilidad de solicitud del servicio de transporte Masivo</div>
                                 <div class="rating-scale">
                                     <label class="rating-1"><input type="radio" name="p9" value="1"><span>😠 1 Muy insatisfecho</span></label>
@@ -1729,6 +1729,23 @@
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
                 });
+        }
+
+        // Filtrar preguntas según tipo de servicio
+        function filtrarPreguntas() {
+            const tipo = document.getElementById('tipoServicio').value;
+            const p8row = document.getElementById('p8-row');
+            const p9row = document.getElementById('p9-row');
+            if (tipo === 'Servicio permanente masivo') {
+                p8row.style.display = 'none';
+                p9row.style.display = '';
+            } else if (tipo === 'Servicio ocasional') {
+                p8row.style.display = '';
+                p9row.style.display = 'none';
+            } else {
+                p8row.style.display = '';
+                p9row.style.display = '';
+            }
         }
 
         // Actualizar rutas según jornada
